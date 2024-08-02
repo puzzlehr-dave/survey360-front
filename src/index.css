@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+  font-family: "San Francisco";
+  src: url("./fonts/SFPRODISPLAYREGULAR.OTF");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "San Francisco";
+  src: url("./fonts/SFPRODISPLAYBOLD.OTF");
+  font-weight: 700;
+}
+
+*, * *{
+  font-family: "San Francisco";
+  font-weight: normal;
+}
+
+body{
+  background-color: #f3f3f3;
+}
