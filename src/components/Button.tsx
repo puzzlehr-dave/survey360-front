@@ -6,6 +6,7 @@ type ButtonProps = {
   buttonType?: "primary" | "secondary";
   link?: string;
   size?: "sm" | "smIcon" | "md" | "lg";
+  onClick?: () => void;
 };
 
 const buttonSizes = {
@@ -25,10 +26,15 @@ export default function Button({
   buttonType = "secondary",
   link,
   size = "md",
+  onClick,
 }: ButtonProps) {
   const buttonClass = `${buttonSizes[size]} rounded-md flex justify-center ${buttonStyles[buttonType]}`;
 
-  const buttonElement = <button className={buttonClass}>{label}</button>;
+  const buttonElement = (
+    <button onClick={onClick} className={buttonClass}>
+      {label}
+    </button>
+  );
 
   return link ? <Link to={link}>{buttonElement}</Link> : buttonElement;
 }
