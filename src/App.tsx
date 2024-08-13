@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Clients from "./pages/Clients";
 import SingleClient from "./pages/SingleClient";
 import CreateSurvey from "./pages/CreateSurvey";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             element={<CreateSurvey />}
           />
         </Routes>
+        <ToastContainer position="bottom-left" />
       </Router>
     </>
   );

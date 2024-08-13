@@ -4,8 +4,17 @@ import ClientList from "../components/Clients/ClientList";
 import Container from "../components/Container";
 import Divider from "../components/Divider";
 import { Plus } from "react-feather";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import type { User } from "../types/users";
 
 export default function Clients() {
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    setUser(JSON.parse(Cookies.get("userDetails") || ""));
+  }, []);
+
   return (
     <Container>
       <div className="flex items-center">

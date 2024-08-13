@@ -1,35 +1,40 @@
 const api = "http://localhost:4000";
 const baseurl = api + "/auth";
 import axios from "axios";
+import type { User } from "../types/users";
+import type { ResponseData } from "../types/api";
 
 /**
- * requests API to send a code to the supplied email
- * @returns {boolean} - true or false
+ * Requests API to send a code to the supplied email.
+ * @returns {Object} result - The result of the API request.
+ * @returns {boolean} result.successful - Indicates if the request was successful.
+ * @returns {string} result.errorMessage - A message describing the result.
  */
 async function sendVerificationCode({
   email,
 }: {
   email: string;
-}): Promise<boolean> {
+}): Promise<ResponseData> {
   try {
     const { data } = await axios.post(baseurl + "/sendVerificationCode", {
       email,
     });
-    if (data.successful) {
-      return true;
-    }
-    console.log(data.errorMessage);
-    return false;
+    return data;
   } catch (err) {
-    console.error(err);
-    return false;
+    console.log(err);
+    return {
+      successful: false,
+      errorMessage: "Technical error, contact developer",
+    };
   }
 }
 
 /**
  * requests API to validate if the supplied code is correct
  * @param {string} verificationCode - 4-digit code from the user input
- * @returns {boolean} - true or false
+ * @returns {Object} result - The result of the API request.
+ * @returns {boolean} result.successful - Indicates if the request was successful.
+ * @returns {string} result.errorMessage - A message describing the result.
  */
 async function validateVerificationCode({
   email,
@@ -37,19 +42,23 @@ async function validateVerificationCode({
 }: {
   email: string;
   verificationCode: string;
-}) {
+}): Promise<
+  ResponseData & {
+    data?: { user: User };
+  }
+> {
   try {
     const { data } = await axios.post(baseurl + "/validateVerificationCode", {
       email,
       verificationCode,
     });
-    if (data.successful) {
-      return true;
-    }
-    return false;
+    return data;
   } catch (err) {
-    console.error(err);
-    return false;
+    console.log(err);
+    return {
+      successful: false,
+      errorMessage: "Technical error, contact developer",
+    };
   }
 }
 
